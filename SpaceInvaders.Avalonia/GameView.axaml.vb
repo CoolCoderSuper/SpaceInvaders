@@ -6,8 +6,8 @@ Imports Avalonia.Markup.Xaml
 Imports Avalonia.Media
 Imports Avalonia.Threading
 'TODO: Improve performance
-Partial Public Class GameWindow
-    Inherits Window
+Partial Public Class GameView
+    Inherits UserControl
 
     Private _playerPosition As Integer
     Private ReadOnly _bulletRects As New List(Of Rectangle)
@@ -32,16 +32,18 @@ Partial Public Class GameWindow
     Private ReadOnly _enemyCount As Integer = 20
     Private ReadOnly _invaderSpeed As Integer = 5
     Private ReadOnly _bombRate As Integer = 30
+    Private ReadOnly _displayManager As IDisplayManager
 
 #Region "Components"
 
-    Public Sub New(bombSpeed As Integer, playerSpeed As Integer, reloads As Integer, enemyCount As Integer, invaderSpeed As Integer, bombRate As Integer)
+    Public Sub New(bombSpeed As Integer, playerSpeed As Integer, reloads As Integer, enemyCount As Integer, invaderSpeed As Integer, bombRate As Integer, displayManager As IDisplayManager)
         _bombSpeed = bombSpeed
         _playerSpeed = playerSpeed
         _reloads = reloads
         _enemyCount = enemyCount
         _invaderSpeed = invaderSpeed
         _bombRate = bombRate
+        _displayManager = displayManager
         AvaloniaXamlLoader.Load(Me)
         _gameBoard = FindControl(Of Canvas)("GameBoard")
         _playerRect = New Rectangle With {
@@ -110,7 +112,7 @@ Partial Public Class GameWindow
         Next
         For Each enemy As Rectangle In _enemies
             Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + _invaderSpeed)
-            If Canvas.GetLeft(enemy) > Width + 20 Then
+            If Canvas.GetLeft(enemy) > _gameBoard.Bounds.Width + 20 Then
                 Canvas.SetTop(enemy, Canvas.GetTop(enemy) + enemy.Height + 10)
                 Canvas.SetLeft(enemy, -50)
             End If
@@ -124,6 +126,7 @@ Partial Public Class GameWindow
     End Sub
 
     Private Sub MainWindow_Loaded(sender As Object, e As RoutedEventArgs)
+        Focus()
         SetupPlayer()
         SetPlayerPosition()
         CreateEnemies()
@@ -138,8 +141,8 @@ Partial Public Class GameWindow
     End Sub
     
     Private Sub SetupPlayer()
-        Canvas.SetTop(_playerRect, Height - 50)
-        _playerPosition = Width / 2 - 50
+        Canvas.SetTop(_playerRect, _gameBoard.Bounds.Height - 50)
+        _playerPosition = _gameBoard.Bounds.Width / 2 - 50
     End Sub
     
     Private Sub SetScore()
@@ -193,7 +196,7 @@ Partial Public Class GameWindow
     End Function
 
     Private Sub CreateEnemies()
-        Dim enemiesOnScreen As Integer = Width / (55 + (10 / _enemyCount))
+        Dim enemiesOnScreen As Integer = _gameBoard.Bounds.Width / (55 + (10 / _enemyCount))
         Dim enemyBuffer As Integer = Math.Abs(enemiesOnScreen - _enemyCount) / 2
         Dim enemyPosition As Integer = 5 + enemyBuffer * 50
         For i As Integer = 0 To _enemyCount - 1
@@ -225,7 +228,7 @@ Partial Public Class GameWindow
             .Width = 5,
             .Fill = Brushes.Wheat
         }
-        Canvas.SetTop(bulletRect, Height - 70)
+        Canvas.SetTop(bulletRect, _gameBoard.Bounds.Height - 70)
         Canvas.SetLeft(bulletRect, _playerPosition + 20)
         _bulletRects.Add(bulletRect)
         _gameBoard.Children.Add(bulletRect)
@@ -240,7 +243,7 @@ Partial Public Class GameWindow
                 .Fill = Brushes.DarkGoldenrod
                 }
         Canvas.SetTop(bombRect, 1)
-        Canvas.SetLeft(bombRect, Random.Shared.Next(0, Width))
+        Canvas.SetLeft(bombRect, Random.Shared.Next(0, _gameBoard.Bounds.Width))
         _bombs.Add(bombRect)
         _gameBoard.Children.Add(bombRect)
     End Sub
@@ -253,8 +256,8 @@ Partial Public Class GameWindow
         SetupPlayer()
     End Sub
 
-    Private Sub Window_Closing(sender As Object, e As WindowClosingEventArgs)
-        Dim frm As New MainWindow
-        frm.Show()
+    Private Sub Window_Closing(sender As Object, e As RoutedEventArgs)
+        _displayManager.Show(New MainView(_displayManager))
+        _displayManager.Close(Me)
     End Sub
 End Class

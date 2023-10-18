@@ -1,4 +1,5 @@
 Imports Avalonia
+Imports SpaceInvaders.Avalonia
 
 Public Module Program
     Public Sub Main(args As String())
