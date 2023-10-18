@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="500"
+        x:Class="SpaceInvaders.Avalonia.MainWindow"
+        Title="SpaceInvaders"
+		Width="700" Height="500">
+    <StackPanel>
+		<TextBlock Text="How to Play" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
+		<TextBlock Text="Use the arrow keys to move left and right" HorizontalAlignment="Center"/>
+		<TextBlock Text="Use the space bar to shoot" HorizontalAlignment="Center"/>
+		<TextBlock Text="Use the R keys to reload" HorizontalAlignment="Center"/>
+		<TextBox Name="BombRate" Watermark="Bomb Rate" Text="30" UseFloatingWatermark="True"/>
+		<TextBox Name="BombSpeed" Watermark="Bomb Speed" Text="20" UseFloatingWatermark="True"/>
+		<TextBox Name="InvaderCount" Watermark="Invader Count" Text="20" UseFloatingWatermark="True"/>
+		<TextBox Name="InvaderSpeed" Watermark="Invader Speed" Text="5" UseFloatingWatermark="True"/>
+		<TextBox Name="PlayerSpeed" Watermark="Player Speed" Text="5" UseFloatingWatermark="True"/>
+		<TextBox Name="Reloads" Watermark="Reloads" Text="3" UseFloatingWatermark="True"/>
+		<Button Content="Go" HorizontalAlignment="Center" Click="Go_Click"/>
+    </StackPanel>
+</Window>
