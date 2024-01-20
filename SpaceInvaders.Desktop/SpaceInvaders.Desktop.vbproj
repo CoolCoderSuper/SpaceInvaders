@@ -4,6 +4,7 @@
         <OutputType>WinExe</OutputType>
         <RootNamespace>SpaceInvaders.Desktop</RootNamespace>
         <TargetFramework>net8.0</TargetFramework>
+        <PublishAot>true</PublishAot>
     </PropertyGroup>
 
     <ItemGroup>
