@@ -7,7 +7,7 @@
         Focusable="True"
         Loaded="MainWindow_Loaded" SizeChanged="MainWindow_SizeChanged" KeyDown="MainWindow_KeyDown" KeyUp="MainWindow_KeyUp">
     <Grid RowDefinitions="Auto,*,Auto">
-	    <Button Click="Window_Closing">Home</Button>
+	    <Button Click="Window_Closing" HotKey="Ctrl+H">Home</Button>
 	    <Canvas Grid.Row="1" Name="GameBoard" Grid.ColumnSpan="1"/>
 	    <DockPanel Grid.Row="2">
 			<TextBlock DockPanel.Dock="Left" Name="Score"/>

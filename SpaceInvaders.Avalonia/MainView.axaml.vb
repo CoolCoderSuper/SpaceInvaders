@@ -23,6 +23,15 @@ Public Class MainView
         _playerSpeed = FindControl(Of TextBox)("PlayerSpeed")
         _reloads = FindControl(Of TextBox)("Reloads")
     End Sub
+    
+    Public Sub LoadValues(intBombRate As Integer, intBombSpeed As Integer, intInvaderCount As Integer, intInvaderSpeed As Integer, intPlayerSpeed As Integer, intReloads As Integer)
+        _bombRate.Text = intBombRate
+        _bombSpeed.Text = intBombSpeed
+        _invaderCount.Text = intInvaderCount
+        _invaderSpeed.Text = intInvaderSpeed
+        _playerSpeed.Text = intPlayerSpeed
+        _reloads.Text = intReloads
+    End Sub
 
     Private Sub Go_Click(sender As Object, e As RoutedEventArgs)
         Dim view As New GameView(_bombSpeed.Text, _playerSpeed.Text, _reloads.Text, _invaderCount.Text, _invaderSpeed.Text, _bombRate.Text, _displayManager)

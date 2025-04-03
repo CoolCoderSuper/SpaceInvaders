@@ -16,6 +16,6 @@
         <TextBox Name="InvaderSpeed" Watermark="Invader Speed" Text="5" UseFloatingWatermark="True"/>
         <TextBox Name="PlayerSpeed" Watermark="Player Speed" Text="5" UseFloatingWatermark="True"/>
         <TextBox Name="Reloads" Watermark="Reloads" Text="3" UseFloatingWatermark="True"/>
-        <Button Content="Go" HorizontalAlignment="Center" Click="Go_Click"/>
+        <Button Content="Go" HorizontalAlignment="Center" Click="Go_Click" HotKey="Ctrl+P"/>
     </StackPanel>
 </UserControl>

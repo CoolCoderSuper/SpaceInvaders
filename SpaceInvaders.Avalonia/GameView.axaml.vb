@@ -257,7 +257,9 @@ Partial Public Class GameView
     End Sub
 
     Private Sub Window_Closing(sender As Object, e As RoutedEventArgs)
-        _displayManager.Show(New MainView(_displayManager))
+        Dim mainView As MainView = New MainView(_displayManager)
+        mainView.LoadValues(_bombRate, _bombSpeed, _enemyCount, _invaderSpeed, _playerSpeed, _reloads)
+        _displayManager.Show(mainView)
         _displayManager.Close(Me)
     End Sub
 End Class
